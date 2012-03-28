@@ -1,3 +1,14 @@
 Some colleagues and I have been thinking for some time about making a whitelist filter (such as Michael Eddington's reform library) easily accessible to web devs. As we use Django with Jinja2 at Mozilla, this seemed like an ideal target for a first kick.
 
 This is a rough and ready early release. To use, include the filter methods in filters.py as jinja2 filters. A (lightly) modified version of reform is included.
+
+Examples:
+=========
+This shows use of url attribute and 'plain' html attribute filters:
+<img src='{{ imgurl|urlattributefilter }}' alt="{{ alttext|htmlattributefilter }}">
+
+This shows use of URL parameter filter:
+<a href="http://example.com/thing?param1={{ param | urlparamfilter }}&param2=foo">other</a>
+
+And here's some use of the CSS URL filter and the standard CSS value filter:
+<div style="background-image: url({{ cssstuff|cssurlfilter }}); color:{{ csscol|cssfilter }}">...</div>
