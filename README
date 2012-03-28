@@ -1,0 +1,3 @@
+Some colleagues and I have been thinking for some time about making a whitelist filter (such as Michael Eddington's reform library) easily accessible to web devs. As we use Django with Jinja2 at Mozilla, this seemed like an ideal target for a first kick.
+
+This is a rough and ready early release. To use, include the filter methods in filters.py as jinja2 filters. A (lightly) modified version of reform is included.
