@@ -118,7 +118,7 @@ def JsString(strInput, default=''):
 		strInput = default
 		
 		if strInput == None or len(strInput) == 0:
-			return "''"
+			return ""
 	
 	# Allow: a-z A-Z 0-9 SPACE , .
 	# Allow (dec): 97-122 65-90 48-57 32 44 46
@@ -136,7 +136,7 @@ def JsString(strInput, default=''):
 		else:
 			out += "\\u%04X" % c
 	
-	return "'%s'" % out
+	return "%s" % out
 
 def VbsString(strInput, default=''):
 	
@@ -478,76 +478,70 @@ class ReformUnittest(unittest.TestCase):
 
 	def testJsString(self):
 		# Non encoded characters
-		self.failUnlessEqual("'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.'",
+		self.failUnlessEqual("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.",
 			Reform.JsString("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,."), "Non encoding chars")
 		# Usual suspects
-		self.failUnlessEqual("'\\x3C\\x3E\\x26\\x22\\x5C\\x27'",
+		self.failUnlessEqual("\\x3C\\x3E\\x26\\x22\\x5C\\x27",
 			Reform.JsString("<>&\"\\'"), "Usual suspects")
 		# Other characters
-		self.failUnlessEqual("'\\x60\\x7E\\x21\\x40\\x23\\x24\\x25\\x5E\\x26\\x2A\\x28\\x29\\x5F\\x2B\\x3D\\x2D\\x7B\\x7D\\x7C\\x5C\\x5D\\x5B\\x3A\\x3B\\x27\\x2F\\x3F\\x3E\\x3C'",
+		self.failUnlessEqual("\\x60\\x7E\\x21\\x40\\x23\\x24\\x25\\x5E\\x26\\x2A\\x28\\x29\\x5F\\x2B\\x3D\\x2D\\x7B\\x7D\\x7C\\x5C\\x5D\\x5B\\x3A\\x3B\\x27\\x2F\\x3F\\x3E\\x3C",
 			Reform.JsString("`~!@#$%^&*()_+=-{}|\\][:;'/?><"), "Punctuation")
 		# Unicode characters
 		toEncode = u''
 		encodedStr = ''
-		encodedStr += "'"
 		for i in range(128, 6000):
 			toEncode += unichr(i)
 			encodedStr += "\\u%04X" % i
 			
-		encodedStr += "'"
 		self.failUnlessEqual(encodedStr,
 			Reform.JsString(toEncode), "Unicode characters to 6000")
 
 
 
 	def testJsStringDefault(self):
-		self.failUnlessEqual("\'\'",
+		self.failUnlessEqual("",
 			Reform.JsString(None, None), "None for both parameters")
 		# Usual stuff
-		self.failUnlessEqual("'default'",
+		self.failUnlessEqual("default",
 			Reform.JsString(None, "default"), "Checking default")
 
 		# Non encoded characters
-		self.failUnlessEqual("'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.'",
+		self.failUnlessEqual("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.",
 			Reform.JsString(None, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,."), "Non encoding chars via default")
 		# Usual suspects
-		self.failUnlessEqual("'\\x3C\\x3E\\x26\\x22\\x5C\\x27'",
+		self.failUnlessEqual("\\x3C\\x3E\\x26\\x22\\x5C\\x27",
 			Reform.JsString(None, "<>&\"\\'"), "Usual suspects via default")
 		# Other characters
-		self.failUnlessEqual("'\\x60\\x7E\\x21\\x40\\x23\\x24\\x25\\x5E\\x26\\x2A\\x28\\x29\\x5F\\x2B\\x3D\\x2D\\x7B\\x7D\\x7C\\x5C\\x5D\\x5B\\x3A\\x3B\\x27\\x2F\\x3F\\x3E\\x3C'",
+		self.failUnlessEqual("\\x60\\x7E\\x21\\x40\\x23\\x24\\x25\\x5E\\x26\\x2A\\x28\\x29\\x5F\\x2B\\x3D\\x2D\\x7B\\x7D\\x7C\\x5C\\x5D\\x5B\\x3A\\x3B\\x27\\x2F\\x3F\\x3E\\x3C",
 			Reform.JsString(None, "`~!@#$%^&*()_+=-{}|\\][:;'/?><"), "Punctuation via default")
 		# Unicode characters
 		toEncode = u''
 		encodedStr = ''
-		encodedStr += "'"
 		for i in range(128, 6000):
 			toEncode += unichr(i)
 			encodedStr += "\\u%04X" % i
 
-		encodedStr += "'"
 		self.failUnlessEqual(encodedStr,
 			Reform.JsString(None, toEncode), "Unicode characters to 6000 via default")
 
 		# The following are sanity checks
 
 		# Non encoded characters
-		self.failUnlessEqual("'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.'",
+		self.failUnlessEqual("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.",
 			Reform.JsString("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321 ,.", "default"), "Non encoding chars")
 		# Usual suspects
-		self.failUnlessEqual("'\\x3C\\x3E\\x26\\x22\\x5C\\x27'",
+		self.failUnlessEqual("\\x3C\\x3E\\x26\\x22\\x5C\\x27",
 			Reform.JsString("<>&\"\\'", "default"), "Usual suspects")
 		# Other characters
-		self.failUnlessEqual("'\\x60\\x7E\\x21\\x40\\x23\\x24\\x25\\x5E\\x26\\x2A\\x28\\x29\\x5F\\x2B\\x3D\\x2D\\x7B\\x7D\\x7C\\x5C\\x5D\\x5B\\x3A\\x3B\\x27\\x2F\\x3F\\x3E\\x3C'",
+		self.failUnlessEqual("\\x60\\x7E\\x21\\x40\\x23\\x24\\x25\\x5E\\x26\\x2A\\x28\\x29\\x5F\\x2B\\x3D\\x2D\\x7B\\x7D\\x7C\\x5C\\x5D\\x5B\\x3A\\x3B\\x27\\x2F\\x3F\\x3E\\x3C",
 			Reform.JsString("`~!@#$%^&*()_+=-{}|\\][:;'/?><", "default"), "Punctuation")
 		# Unicode characters
 		toEncode = u''
 		encodedStr = ''
-		encodedStr += "'"
 		for i in range(128, 6000):
 			toEncode += unichr(i)
 			encodedStr += "\\u%04X" % i
 
-		encodedStr += "'"
 		self.failUnlessEqual(encodedStr,
 			Reform.JsString(toEncode, "default"), "Unicode characters to 6000")
 
