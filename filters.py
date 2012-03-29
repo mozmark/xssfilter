@@ -16,7 +16,7 @@ def cssvalue(eval_ctx, value):
 def cssurl(eval_ctx, value):
   for prefix in allowed_prefixes:
     if value.lower().startswith(prefix):
-      return Markup(cssfilter(eval_ctx,value))
+      return Markup(cssvalue(eval_ctx,value))
   return ''
 
 @evalcontextfilter
