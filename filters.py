@@ -5,30 +5,30 @@ from urllib import quote_plus
 allowed_prefixes=['http','https','ftp','/'];
 
 @evalcontextfilter
-def htmlattributefilter(eval_ctx, value):
+def htmlattribute(eval_ctx, value):
   return Markup(reform.HtmlAttributeEncode(value))
 
 @evalcontextfilter
-def cssfilter(eval_ctx, value):
+def cssvalue(eval_ctx, value):
   return Markup(reform.CssString(value))
 
 @evalcontextfilter
-def cssurlfilter(eval_ctx, value):
+def cssurl(eval_ctx, value):
   for prefix in allowed_prefixes:
     if value.lower().startswith(prefix):
       return Markup(cssfilter(eval_ctx,value))
   return ''
 
 @evalcontextfilter
-def jsfilter(eval_ctx, value):
+def jsvalue(eval_ctx, value):
   return Markup(reform.JsString(value))
   
 @evalcontextfilter
-def urlparamfilter(eval_ctx, value):
+def urlparam(eval_ctx, value):
   return Markup(quote_plus(value))
 
 @evalcontextfilter
-def urlattributefilter(eval_ctx, value):
+def urlattribute(eval_ctx, value):
   for prefix in allowed_prefixes:
     if value.lower().startswith(prefix):
       return Markup(reform.HtmlAttributeEncode(value,whitelist=':@/.'))
