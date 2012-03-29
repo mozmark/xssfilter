@@ -1,6 +1,18 @@
-Some colleagues and I have been thinking for some time about making a whitelist filter (such as Michael Eddington's reform library) easily accessible to web devs. As we use Django with Jinja2 at Mozilla, this seemed like an ideal target for a first kick.
+We (Mozilla Security Assurance) have been thinking for some time about making a whitelist filter (such as Michael Eddington's reform library) easily accessible to web devs. As we use Django with Jinja2 at Mozilla, this seemed like an ideal target for a first kick.
 
 This is a rough and ready early release. To use, include the filter methods in filters.py as jinja2 filters. A (lightly) modified version of reform is included.
+
+The Rules:
+==========
+These filters can only help you if you follow some basic rules:
+* Always be explicit about document type and encoding
+* Never put untrusted data directly in a script
+* Never put untrusted data directly inside an HTML comment
+* Never put untrusted data in an attribute name
+* Never put untrusted data in a tag name
+* Never put untrusted data directly in CSS
+
+For good measure, I recommend you read this document: https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 
 Examples:
 =========
