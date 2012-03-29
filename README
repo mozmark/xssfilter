@@ -20,7 +20,7 @@ This shows use of url attribute and 'plain' html attribute filters:
 <img src='{{ imgurl|urlattributefilter }}' alt="{{ alttext|htmlattributefilter }}">
 
 This shows use of URL parameter filter:
-<a href="http://example.com/thing?param1={{ param | urlparamfilter }}&param2=foo">other</a>
+<a href="/some/base/url?param1={{ param | urlparamfilter }}&param2=foo">other</a>
 
 And here's some use of the CSS URL filter and the standard CSS value filter:
 <div style="background-image: url({{ cssstuff|cssurlfilter }}); color:{{ csscol|cssfilter }}">...</div>
