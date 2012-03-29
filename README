@@ -12,7 +12,7 @@ These filters can only help you if you follow some basic rules:
 * Never put untrusted data in a tag name
 * Never put untrusted data directly in CSS
 
-For good measure, I recommend you read this document: https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
+These rules are from OWASPs XSS Prevention Cheat Sheet, I recommend you read this document: https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 
 Examples:
 =========
